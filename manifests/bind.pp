@@ -16,6 +16,7 @@ define pckeyboardhack::bind($mappings) {
 
   exec { "chown ${::boxen_user} ${pckeyboardhack::config::plist_path}":
     command => "chown ${::boxen_user} ${pckeyboardhack::config::plist_path}",
+    unless => "ls -l ${pckeyboardhack::config::plist_path} | grep '\\d\\s${::boxen_user}\\s\\s'",
     require => Property_list_key['pckeyboardhack::bind']
   }
 }
